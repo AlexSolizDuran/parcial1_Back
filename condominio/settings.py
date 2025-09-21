@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'condominio.apps.usuario',
     'condominio.apps.servicio_pago',
     'condominio.apps.residencias',
-    'condominio.apps.registros_multas',
-    'comdominio.apps.admin_condominio'
+    'condominio.apps.registro_multa',
+    'condominio.apps.admin_condominio'
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

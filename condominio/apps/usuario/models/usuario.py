@@ -1,7 +1,6 @@
 from django.db import models
-from django.utils import timezone
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from .rol import Rol
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
         if not username:
@@ -37,6 +36,7 @@ class User(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
+    roles = models.ManyToManyField(Rol, through='RolUsuario')
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']  

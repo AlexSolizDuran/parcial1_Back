@@ -4,7 +4,8 @@ from django.db import models
 class Rol(models.Model):
     nombre = models.CharField(max_length=50, unique=True)
     descripcion = models.TextField(blank=True, null=True)
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = "rol"
 
@@ -16,10 +17,11 @@ class RolUsuario(models.Model):
     usuario = models.ForeignKey('User', on_delete=models.CASCADE)
     #en la db esto se muestra rol_id
     rol = models.ForeignKey('Rol', on_delete=models.CASCADE)
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = "rol_usuario"
-        unique_together = ('id_usuario', 'id_rol')
+        unique_together = ('usuario', 'rol')
 
     def __str__(self):
         return f"{self.usuario.username} - {self.rol.nombre}"
