@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'condominio.apps.usuario',
     'condominio.apps.servicio_pago',
     'condominio.apps.residencias',
-    'condominio.apps.registro_multa',
-    'condominio.apps.admin_condominio'
+    'condominio.apps.acceso_registro',
+    'condominio.apps.admin_condominio',
+    'condominio.apps.incidencia',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -146,3 +147,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"

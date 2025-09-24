@@ -16,8 +16,6 @@ class Condominio(models.Model):
     telefono = models.CharField(max_length=20)
     QR = models.ImageField(upload_to='qr_condominios/')
     cantidad_viviendas = models.PositiveIntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     admin = models.ManyToManyField(Admin,through='AdminCondominio')
 
     class Meta:

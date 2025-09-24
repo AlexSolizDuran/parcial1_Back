@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from .rol import Rol
+
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
         if not username:
@@ -21,7 +21,8 @@ class Persona(models.Model):
     apellido = models.CharField(max_length=150)
     ci = models.CharField(max_length=20, null=True)  
     telefono = models.CharField(max_length=20, blank=True, null=True)
-
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = "persona"
     def __str__(self):
@@ -36,7 +37,7 @@ class User(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
-    roles = models.ManyToManyField(Rol, through='RolUsuario')
+
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']  

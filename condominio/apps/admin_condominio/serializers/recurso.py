@@ -1,5 +1,5 @@
 from rest_framework  import serializers
-from ..models import Recurso,TipoRecurso,Condominio,Admin
+from ..models import Recurso,TipoRecurso,Condominio,Admin,AdminCondominio
 
 
 class TipoRecursoSerializer(serializers.ModelSerializer):
@@ -16,6 +16,7 @@ class RecursoSerializer(serializers.ModelSerializer):
         
     def create(self, validated_data):
         user = self.context['request'].user  # admin logueado
-        admin = Admin.objects.get(usuario=user)  # obtener objeto Admin del usuario
-        validated_data['condominio'] = admin.condominio  # asignar condominio automáticamente
+        admin = Admin.objects.get(usuario=user) 
+        admin_condominio = AdminCondominio.objects.filter(admin=admin, activo=True).first()
+        validated_data['condominio'] = admin_condominio.condominio  # asignar condominio automáticamente
         return super().create(validated_data)

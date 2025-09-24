@@ -1,0 +1,6 @@
+from .serivicio_basico import ServicioBasicoSerializer
+from .pago import TipoPagoSerializer,PagoSerializer
+from .pago_expensa import ExpensaViviendaSerializer
+from .nota_alquiler import NotaAlquilerSerializer
+from .factura import FacturaSerializer,DetalleFacturaSerializer
+from .expensa import ExpensaSerializer,TipoExpensaSerializer

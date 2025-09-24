@@ -8,4 +8,4 @@ class ReservaSerializer(serializers.ModelSerializer):
     recurso = serializers.PrimaryKeyRelatedField(queryset=Recurso.objects.all())
     class Meta:
         model = Reserva
-        fielsd = ['descripcion', 'estado', 'fecha_inicio', 'fecha_fin', 'recurso', 'usuario']
+        fields = ['descripcion', 'estado', 'fecha_inicio', 'fecha_fin', 'recurso', 'usuario']
