@@ -1,6 +1,8 @@
 from django.db import models
 from ...usuario.models import User
 from .vivienda import Contrato
+from ..models.vivienda import Contrato
+
 
 class Inquilino(models.Model):
     estado = models.BooleanField(default=True)
@@ -20,3 +22,11 @@ class Mascota(models.Model):
     
     class Meta:
         db_table = 'mascota'
+        
+class Ocupante(models.Model):
+    persona_ci = models.PositiveBigIntegerField()
+    estado = models.BooleanField(default=True)
+    contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE,related_name='ocupantes')
+    class Meta:
+        db_table = 'ocupante'
+        

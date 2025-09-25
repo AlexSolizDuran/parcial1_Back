@@ -1,3 +1,3 @@
-from .inquilino import InquilinoViewSet,MascotaViewSet
+from .inquilino import InquilinoViewSet,MascotaViewSet,OcupanteViewSet
 from .propietario import PropietarioViewSet,ParqueoViewSet,NumeroParqueoViewSet
 from .vivienda import ViviendaViewSet,HistorialDueñoViewSet,ContratoViewSet

@@ -9,6 +9,7 @@ from .views import (
     NumeroParqueoViewSet,
     ParqueoViewSet,
     PropietarioViewSet,
+    OcupanteViewSet
     
 )
 router = DefaultRouter()
@@ -20,6 +21,7 @@ router.register(r'vivienda', ViviendaViewSet, basename='vivienda')
 router.register(r'numero_parqueo', NumeroParqueoViewSet, basename='numero_parqueo')
 router.register(r'parqueos', ParqueoViewSet, basename='parqueos')
 router.register(r'propietario', PropietarioViewSet, basename='propietario') 
+router.register(r'ocupante', OcupanteViewSet, basename='ocupante')
 
 urlpatterns = [
     path('', include(router.urls)),

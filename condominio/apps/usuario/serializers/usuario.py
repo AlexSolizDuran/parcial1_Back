@@ -4,7 +4,7 @@ from ..models import User, Persona
 class PersonaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Persona
-        fields = ['nombre', 'apellido', 'ci', 'telefono']
+        fields = ['nombre', 'apellido', 'ci', 'telefono','fecha_nacimiento','foto','genero','direccion']
 
 class UserSerializer(serializers.ModelSerializer):
     persona = PersonaSerializer()

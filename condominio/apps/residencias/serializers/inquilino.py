@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Inquilino,Mascota,Contrato
+from ..models import Inquilino,Mascota,Contrato,Ocupante
 from ...usuario.models import User
 
 class InquilinoSerializer(serializers.ModelSerializer):
@@ -15,3 +15,7 @@ class MascotaSerializer(serializers.ModelSerializer):
         model = Mascota
         fields = ['nombre', 'especie', 'raza', 'inquilino']
         
+class OcupanteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ocupante
+        fields = ['persona_ci', 'estado', 'contrato']

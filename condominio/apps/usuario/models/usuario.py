@@ -19,7 +19,11 @@ class UserManager(BaseUserManager):
 class Persona(models.Model):
     nombre = models.CharField(max_length=150)
     apellido = models.CharField(max_length=150)
-    ci = models.CharField(max_length=20, null=True)  
+    ci = models.CharField(max_length=20, null=True)
+    fecha_nacimiento = models.DateField(null=True)
+    foto = models.ImageField(upload_to='fotos/', null=True)  
+    genero = models.CharField(max_length=10, null=True)
+    direccion = models.CharField(max_length=255,  null=True)
     telefono = models.CharField(max_length=20, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
