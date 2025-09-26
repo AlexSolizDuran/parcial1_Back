@@ -27,6 +27,7 @@ class Persona(models.Model):
     telefono = models.CharField(max_length=20, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
     class Meta:
         db_table = "persona"
     def __str__(self):
@@ -41,7 +42,13 @@ class User(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
-
+    activo = models.BooleanField(default=True)
+    
+    roles = models.ManyToManyField(
+        'Rol',
+        through='RolUsuario',
+        related_name='usuarios'
+    )
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']  

@@ -16,7 +16,8 @@ class LoginView(generics.GenericAPIView):
         
         if user is not None:
             
-            
+
+
             refresh = RefreshToken.for_user(user)
     # Agregar información extra al payload del access token
             refresh['username'] = user.username
@@ -31,7 +32,7 @@ class LoginView(generics.GenericAPIView):
         
             response.set_cookie(
                 key="refreshToken",
-                value=refresh,
+                value=str(refresh),                
                 httponly=True,
                 secure=False,
                 samesite="Strict",

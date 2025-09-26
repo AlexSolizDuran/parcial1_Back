@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import User, Persona
+from ..models import User, Persona,Rol
 
 class PersonaSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,18 +9,30 @@ class PersonaSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     persona = PersonaSerializer()
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
+    roles = serializers.SlugRelatedField(
+        many=True,
+        queryset=Rol.objects.all(),
+        slug_field='nombre'
+    )
+
 
     class Meta:
         model = User
-        fields = ['username','password', 'email', 'persona']
+        fields = ['username','password', 'email', 'persona','roles','activo']
     
     def create(self, validated_data):
-        persona = validated_data.pop('persona') #estraemos los datos de persona
-        password = validated_data.pop('password') 
-        persona = Persona.objects.create(**persona) # creamos a personar
-        user = User(persona=persona,**validated_data) # creamos a usuario
-        user.set_password(password) #hasheamos contraseña
+        persona_data = validated_data.pop('persona')
+        roles_data = validated_data.pop('roles', [])
+        password = validated_data.pop('password')
+
+        persona = Persona.objects.create(**persona_data)
+        user = User(persona=persona, **validated_data)
+        user.set_password(password)
         user.save()
+
+        # asignar roles
+        user.roles.set(roles_data)
+
         return user
 
     def update(self, instance, validated_data):

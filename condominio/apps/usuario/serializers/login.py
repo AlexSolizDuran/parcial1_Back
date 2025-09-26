@@ -11,17 +11,14 @@ class LoginSerializer(serializers.Serializer):
         username = attrs.get('username')
         password = attrs.get('password')
         
-        if username and password:
-            user = authenticate(username=username, password=password)
-            user = User.objects.get(username=username)
-            if  user is None:
-                raise serializers.ValidationError('Usuario no encontrado')
-
-        else:
+        if not username or not password:
             raise serializers.ValidationError('Debe proporcionar un nombre de usuario y una contraseña')
+        
+        user = authenticate(username=username, password=password)
+
+        if user is None:
+            raise serializers.ValidationError('Credenciales inválidas')
         
         attrs['user'] = user
         return attrs
-
-
     
