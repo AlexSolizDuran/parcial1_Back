@@ -52,10 +52,11 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny', # todas las apis libres
-        #'rest_framework.permissions.IsAuthenticated',# para proteger las apis
+        #'rest_framework.permissions.AllowAny', # todas las apis libres
+        'rest_framework.permissions.IsAuthenticated',# para proteger las apis
     ]   
 }
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=3600),  # duración del access token
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),   # duración del refresh token
@@ -155,3 +156,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # tu frontend
+]
+CORS_ALLOW_CREDENTIALS = True

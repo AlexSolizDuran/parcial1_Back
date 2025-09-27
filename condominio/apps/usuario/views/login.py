@@ -22,16 +22,21 @@ class LoginView(generics.GenericAPIView):
     # Agregar información extra al payload del access token
             refresh['username'] = user.username
             roles = list(user.roles.values_list('nombre', flat=True))
-            refresh['roles'] = roles
+            nombre = user.persona.nombre
+            apellido = user.persona.apellido
+            email = user.email
             
             
             response = Response({
             'access_token': str(refresh.access_token),
-            'roles': roles
+            'roles': roles,
+            'email': email,
+            'nombre': nombre,
+            'apellido': apellido,
             },status = status.HTTP_200_OK)
         
             response.set_cookie(
-                key="refreshToken",
+                key="seccionToken",
                 value=str(refresh),                
                 httponly=True,
                 secure=False,

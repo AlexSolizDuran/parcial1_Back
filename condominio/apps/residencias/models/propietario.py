@@ -12,8 +12,8 @@ class Propietario(models.Model):
     updated_app = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = 'propietario'
-    
-    
+        
+
 class Parqueo(models.Model):
     descripcion = models.TextField()
     propietario = models.OneToOneField(Propietario,on_delete=models.CASCADE)

@@ -2,8 +2,6 @@ from django.db import models
 from .propietario import Propietario
 from ...admin_condominio.models import Condominio
 
-
-
 class Vivienda(models.Model):
     condominio = models.ForeignKey(Condominio, on_delete=models.CASCADE,related_name='viviendas')
     propietario = models.ForeignKey(Propietario, on_delete=models.CASCADE,related_name='viviendas')
@@ -26,15 +24,7 @@ class HistorialDueño(models.Model):
     class Meta:
         db_table = 'historial_dueño'
         
-class Contrato(models.Model):
-    descripcion = models.TextField()
-    fecha_ingreso = models.DateTimeField(null=True)
-    fecha_salida = models.DateTimeField(null=True)
-    porcentaje_expensa = models.PositiveSmallIntegerField(null=True)
-    tipo_renta = models.CharField(max_length=30)
-    vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE,related_name='contratos')
-    class Meta:
-        db_table = 'contrato'
+
 
     
     

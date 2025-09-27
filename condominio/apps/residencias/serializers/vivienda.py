@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ...admin_condominio.models import Condominio
-from ..models import Vivienda,HistorialDueño,Contrato,Propietario
+from ..models import Vivienda,HistorialDueño,Propietario
 
 class ViviendaSerializer(serializers.ModelSerializer):
     condominio = serializers.PrimaryKeyRelatedField(queryset=Condominio.objects.all())
@@ -17,9 +17,3 @@ class HistorialDueñoSerializer(serializers.ModelSerializer):
         model = HistorialDueño
         fields = ['estado', 'fecha_inicio', 'fecha_fin', 'propietario_id', 'vivienda']
         
-class ContratoSerializer(serializers.ModelSerializer):
-    vivienda = serializers.PrimaryKeyRelatedField(queryset=Vivienda.objects.all())
-    class Meta:
-        model = Contrato
-        fields = ['descripcion', 'fecha_ingreso', 'fecha_salida', 
-                  'porcentaje_expensa', 'tipo_renta', 'vivienda']
