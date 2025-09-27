@@ -27,7 +27,7 @@ def crear_usuarios_con_roles(apps, schema_editor):
             ci=str(fake.random_number(digits=8)),
             fecha_nacimiento=fake.date_of_birth(minimum_age=18, maximum_age=65),
             direccion=fake.address(),
-            telefono=fake.phone_number(),
+            telefono=fake.numerify(text="#######")
         )
 
         # Crear usuario
@@ -61,7 +61,7 @@ def crear_usuarios_con_roles(apps, schema_editor):
             ci=str(fake.random_number(digits=8)),
             fecha_nacimiento=fake.date_of_birth(minimum_age=18, maximum_age=65),
             direccion=fake.address(),
-            telefono=fake.phone_number(),
+            telefono=fake.numerify(text="#######")
         )
         
        
