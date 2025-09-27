@@ -5,7 +5,7 @@ from ..models import Pago,TipoPago,Factura
 class TipoPagoSerializer(serializers.ModelSerializer):
     class Meta:
         model = TipoPago
-        fields = ['nombre', 'descripcion']
+        fields = ['id','nombre', 'descripcion']
 
 class PagoSerializer(serializers.ModelSerializer):
     tipo_pago = serializers.PrimaryKeyRelatedField(queryset=TipoPago.objects.all())
@@ -13,4 +13,4 @@ class PagoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pago
-        fields = ['fecha_pago','monto','tipo_pago','factura']
+        fields = ['id','fecha_pago','monto','tipo_pago','factura']

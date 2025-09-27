@@ -7,5 +7,5 @@ class VehiculoSerializer(serializers.ModelSerializer):
     persona = serializers.PrimaryKeyRelatedField(queryset=Persona.objects.all())
     class Meta:
         model = Vehiculo
-        fields = ['color','modelo','placa','persona']
+        fields = ['id','color','modelo','placa','persona']
         

@@ -5,14 +5,14 @@ from ..models import Recurso,TipoRecurso,Condominio,Admin,AdminCondominio
 class TipoRecursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = TipoRecurso
-        fields = ['nombre', 'descripcion']
+        fields = ['id','nombre', 'descripcion']
         
 class RecursoSerializer(serializers.ModelSerializer):
     condominio = serializers.PrimaryKeyRelatedField( read_only=True)
     tipo_recurso = serializers.PrimaryKeyRelatedField(queryset=TipoRecurso.objects.all())
     class Meta:
         model = Recurso
-        fields = ['nombre', 'descripcion', 'estado', 'condominio', 'tipo_recurso']
+        fields = ['id','nombre', 'descripcion', 'estado', 'condominio', 'tipo_recurso']
         
     def create(self, validated_data):
         user = self.context['request'].user  # admin logueado

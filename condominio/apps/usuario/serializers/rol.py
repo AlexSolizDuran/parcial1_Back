@@ -6,11 +6,11 @@ from .usuario import UserSerializer
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol
-        fields = ['nombre', 'descripcion']
+        fields = ['id','nombre', 'descripcion']
 
 class RolUsuarioSerializer(serializers.ModelSerializer):
     rol = RolSerializer()
     usuario = UserSerializer()
     class Meta:
         model = RolUsuario
-        fields = ['usuario', 'rol']
+        fields = ['id','usuario', 'rol']

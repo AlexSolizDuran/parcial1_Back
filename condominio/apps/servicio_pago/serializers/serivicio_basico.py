@@ -9,5 +9,5 @@ class ServicioBasicoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ServicioBasico
-        fields = ['nombre_empresa', 'numero_Factura', 'descripcion','image', 'costo', 
+        fields = ['id','nombre_empresa', 'numero_Factura', 'descripcion','image', 'costo', 
                   'fecha_fin', 'fecha_inicio', 'vivienda',]

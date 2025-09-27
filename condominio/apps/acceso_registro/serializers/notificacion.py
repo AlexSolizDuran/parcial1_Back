@@ -7,4 +7,4 @@ class NotificacionSerializer(serializers.ModelSerializer):
     usuario = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
         model = Notificacion
-        fields = ['descripcion','leido','titulo','usuario']
+        fields = ['id','descripcion','leido','titulo','usuario']

@@ -15,9 +15,6 @@ class LoginView(generics.GenericAPIView):
         user = serializer.validated_data['user']
         
         if user is not None:
-            
-
-
             refresh = RefreshToken.for_user(user)
     # Agregar información extra al payload del access token
             refresh['username'] = user.username
@@ -25,10 +22,10 @@ class LoginView(generics.GenericAPIView):
             nombre = user.persona.nombre
             apellido = user.persona.apellido
             email = user.email
-            
+            access_token = str(refresh.access_token)
             
             response = Response({
-            'access_token': str(refresh.access_token),
+            'access': access_token,
             'roles': roles,
             'email': email,
             'nombre': nombre,

@@ -9,7 +9,7 @@ class SeguridadSeriliazer(serializers.ModelSerializer):
     condominio = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Seguridad
-        fields = ['usuario','condominio','turno','estado']
+        fields = ['id','usuario','condominio','turno','estado']
         
     def create(self, validated_data):
         user = self.context['request'].user
@@ -24,7 +24,7 @@ class RegistroSerializer(serializers.ModelSerializer):
     condominio = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Registro
-        fields = ['ci_persona_entrante',
+        fields = ['id','ci_persona_entrante',
                   'ci_persona_saliente',
                   'fecha_ingreso',
                   'fecha_salida',

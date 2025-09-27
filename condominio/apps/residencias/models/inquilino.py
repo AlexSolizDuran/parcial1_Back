@@ -25,10 +25,12 @@ class Contrato(models.Model):
     descripcion = models.TextField()
     fecha_ingreso = models.DateTimeField(null=True)
     fecha_salida = models.DateTimeField(null=True)
-    inquilino = models.ForeignKey(Inquilino, on_delete=models.CASCADE,related_name='contratos',null=True)
+    inquilino = models.ForeignKey(Inquilino, on_delete=models.CASCADE,null=True)
     porcentaje_expensa = models.PositiveSmallIntegerField(null=True)
     tipo_renta = models.CharField(max_length=30)
-    vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE,related_name='contratos')
+    vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE)
+    estado = models.BooleanField(default=True)
+    
     class Meta:
         db_table = 'contrato'
 
@@ -36,6 +38,6 @@ class Contrato(models.Model):
 class Ocupante(models.Model):
     persona_ci = models.PositiveBigIntegerField()
     estado = models.BooleanField(default=True)
-    contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE,related_name='ocupantes')
+    contrato = models.ForeignKey(Contrato, on_delete=models.CASCADE,related_name='ocupantes',null=True)
     class Meta:
         db_table = 'ocupante'

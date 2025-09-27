@@ -7,4 +7,4 @@ class ExpensaViviendaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExpensaVivienda
-        fields = ['fecha_emision', 'fecha_vencimiento', 'monto', 'estado', 'vivienda']
+        fields = ['id','fecha_emision', 'fecha_vencimiento', 'monto', 'estado', 'vivienda']

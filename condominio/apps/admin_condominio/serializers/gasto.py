@@ -6,7 +6,7 @@ class GastoSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = Gasto
-        fields = ['descripcion', 'monto','condominio']
+        fields = ['id','descripcion', 'monto','condominio']
         
     def create(self, validated_data):
         user = self.context['request'].user  # admin logueado

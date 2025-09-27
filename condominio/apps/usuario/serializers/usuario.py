@@ -4,7 +4,7 @@ from ..models import User, Persona,Rol
 class PersonaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Persona
-        fields = ['nombre', 'apellido', 'ci', 'telefono','fecha_nacimiento','foto','genero','direccion']
+        fields = ['id','nombre', 'apellido', 'ci', 'telefono','fecha_nacimiento','foto','genero','direccion']
 
 class UserSerializer(serializers.ModelSerializer):
     persona = PersonaSerializer()
@@ -18,7 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username','password', 'email', 'persona','roles','activo']
+        fields = ['id','username','password', 'email', 'persona','roles','activo']
     
     def create(self, validated_data):
         persona_data = validated_data.pop('persona')

@@ -26,6 +26,7 @@ def crear_usuarios_con_roles(apps, schema_editor):
             apellido=fake.last_name(),
             ci=str(fake.random_number(digits=8)),
             fecha_nacimiento=fake.date_of_birth(minimum_age=18, maximum_age=65),
+            genero=random.choice(["M", "F","N"]),
             direccion=fake.address(),
             telefono=fake.numerify(text="#######")
         )
@@ -59,6 +60,7 @@ def crear_usuarios_con_roles(apps, schema_editor):
             nombre=fake.first_name(),
             apellido=fake.last_name(),
             ci=str(fake.random_number(digits=8)),
+            genero=random.choice(["M", "F"]),
             fecha_nacimiento=fake.date_of_birth(minimum_age=18, maximum_age=65),
             direccion=fake.address(),
             telefono=fake.numerify(text="#######")

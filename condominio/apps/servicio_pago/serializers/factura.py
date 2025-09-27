@@ -4,7 +4,7 @@ from ..models import Factura,DetalleFactura
 class FacturaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Factura
-        fields = ['nro_factura', 'descripcion', 'fecha_emision', 'monto_total', 'estado', 'usuario']
+        fields = ['id','nro_factura', 'descripcion', 'fecha_emision', 'monto_total', 'estado', 'usuario']
 
 
 class DetalleFacturaSerializer(serializers.ModelSerializer):
@@ -12,4 +12,4 @@ class DetalleFacturaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DetalleFactura
-        fields = ['descripcion', 'monto', 'factura']
+        fields = ['id','descripcion', 'monto', 'factura']
