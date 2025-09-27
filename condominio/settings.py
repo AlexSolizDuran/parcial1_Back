@@ -104,8 +104,12 @@ WSGI_APPLICATION = 'condominio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'condominio',
+        'USER': 'user0',
+        'PASSWORD': 'si2conta',
+        'HOST': 'contabilidad',
+        'PORT': '5432',
     }
 }
 
