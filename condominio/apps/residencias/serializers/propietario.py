@@ -4,7 +4,7 @@ from ...usuario.models import User
 
 
 class PropietarioSerializer(serializers.ModelSerializer):
-    usuario = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    usuario = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(),write_only=True)
     class Meta:
         model = Propietario
         fields = ['id','usuario', 'estado', 'fecha_compra', 'QRpago']

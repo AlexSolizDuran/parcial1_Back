@@ -6,6 +6,12 @@ class PersonaSerializer(serializers.ModelSerializer):
         model = Persona
         fields = ['id','nombre', 'apellido', 'ci', 'telefono','fecha_nacimiento','foto','genero','direccion']
 
+
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id','username', 'email']
+
 class UserSerializer(serializers.ModelSerializer):
     persona = PersonaSerializer()
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})

@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from ..models import Vivienda,HistorialDueño,PropietarioVivivienda
+from ..models import Vivienda,HistorialDueño,PropietarioVivienda
 from ..serializers import ViviendaSerializer,HistorialDueñoSerializer,PropietarioViviendaSerializer
 from rest_framework.permissions import IsAuthenticated
 
@@ -16,6 +16,6 @@ class HistorialDueñoViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     
 class PropietarioViviendaViewSet(viewsets.ModelViewSet):
-    queryset = PropietarioVivivienda.objects.all()
+    queryset = PropietarioVivienda.objects.all()
     serializer_class = PropietarioViviendaSerializer
     permission_classes = [IsAuthenticated]

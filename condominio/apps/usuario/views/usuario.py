@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from ..serializers import UserSerializer,PersonaSerializer
+from ..serializers import UserSerializer,PersonaSerializer,UserListSerializer
 from ..models import User,Persona
 from rest_framework.permissions import IsAuthenticated
 
@@ -10,6 +10,8 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return super().get_queryset().exclude(roles__nombre="admin")
     
+    
+    
 
 class PersonaViewSet(viewsets.ModelViewSet):
     queryset = Persona.objects.all()
@@ -17,8 +19,16 @@ class PersonaViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
-        # Suponiendo que Persona tiene un campo 'user' que puede ser null
-        return Persona.objects.filter(usuario__isnull=True)
+        queryset = super().get_queryset()
+
+        # Obtener el pk de la URL
+        pk = self.kwargs.get("pk")
+        if pk:
+            # Si se pide un detalle, devolver esa persona sin filtrar
+            return queryset.filter(pk=pk)
+
+        # Si es listado, aplicar filtro de usuario nulo
+        return queryset.filter(usuario__isnull=True)
     
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()

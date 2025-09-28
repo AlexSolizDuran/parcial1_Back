@@ -4,7 +4,7 @@ from ...admin_condominio.models import Condominio
 
 class Vivienda(models.Model):
     condominio = models.ForeignKey(Condominio, on_delete=models.CASCADE,related_name='viviendas')
-    propietario = models.ManyToManyField(Propietario,through='PropietarioVivivienda' ,related_name='viviendas')
+    propietario = models.ManyToManyField(Propietario,through='PropietarioVivienda' )
     nro_vivienda = models.PositiveSmallIntegerField()
     precio_alquiler = models.PositiveBigIntegerField(null=True)
     precio_anticretico = models.PositiveBigIntegerField(null=True)
@@ -25,7 +25,7 @@ class HistorialDueño(models.Model):
     class Meta:
         db_table = 'historial_dueño'
         
-class PropietarioVivivienda(models.Model):
+class PropietarioVivienda(models.Model):
     estado = models.BooleanField(default=True)
     propietario = models.ForeignKey(Propietario, on_delete=models.CASCADE)
     vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE)

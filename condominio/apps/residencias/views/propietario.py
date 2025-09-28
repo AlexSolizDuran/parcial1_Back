@@ -11,14 +11,15 @@ class PropietarioViewSet(viewsets.ModelViewSet):
     serializer_class = PropietarioSerializer
     permission_classes = [IsAuthenticated]
     
+    
     @action(detail=False, methods=["GET"])
     def misviviendas(self, request):
         usuario = request.user
         propietario = Propietario.objects.get(usuario=usuario)
 
         viviendas_activas = Vivienda.objects.filter(
-            propietariovivienda__propietario=propietario,
-            propietariovivienda__estado=True
+            propietariovivienda_set__propietario=propietario,
+            propietariovivienda_set__estado=True
         ).prefetch_related(
             'contrato_set',
             'contrato_set__inquilino',
