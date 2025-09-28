@@ -1,13 +1,14 @@
 from rest_framework import serializers
 from ...admin_condominio.models import Condominio
 from ..models import Vivienda,HistorialDueño,Propietario,PropietarioVivienda
+from ..serializers import PropietarioSerializer
+
 
 class ViviendaSerializer(serializers.ModelSerializer):
     condominio = serializers.PrimaryKeyRelatedField(queryset=Condominio.objects.all())
-    propietario = serializers.PrimaryKeyRelatedField(queryset=Propietario.objects.all())
     class Meta:
         model = Vivienda
-        fields = ['id','condominio', 'propietario', 'nro_vivienda',
+        fields = ['id','condominio', 'nro_vivienda',
                   'precio_alquiler', 'precio_anticretico', 'superfice', 'estado','foto']
         
 
@@ -19,7 +20,9 @@ class HistorialDueñoSerializer(serializers.ModelSerializer):
         
 class PropietarioViviendaSerializer(serializers.ModelSerializer):
     propietario = serializers.PrimaryKeyRelatedField(queryset=Propietario.objects.all())
-    vivienda = serializers.PrimaryKeyRelatedField(queryset=Vivienda.objects.all())
+    vivienda = ViviendaSerializer(read_only=True)
     class Meta:
         model = PropietarioVivienda
         fields = ['id','estado', 'propietario', 'vivienda']
+        
+    

@@ -1,6 +1,10 @@
 from rest_framework import viewsets
-from ..models import Propietario,Parqueo,NumeroParqueo,Vivienda
-from ..serializers import PropietarioSerializer,ParqueoSerializer,NumeroParqueoSerializer,ViviendaSerializer
+from ..models import Propietario,Parqueo,NumeroParqueo,Vivienda,PropietarioVivienda
+from ..serializers import (PropietarioSerializer,
+                           ParqueoSerializer,
+                           NumeroParqueoSerializer,
+                           ViviendaSerializer,
+                           PropietarioViviendaSerializer)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
 from django.db.models import Prefetch
@@ -14,9 +18,8 @@ class PropietarioViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=["GET"])
     def misviviendas(self, request):
-        usuario = request.user
-        propietario = Propietario.objects.get(usuario=usuario)
-
+        
+        '''
         viviendas_activas = Vivienda.objects.filter(
             propietariovivienda_set__propietario=propietario,
             propietariovivienda_set__estado=True
@@ -25,9 +28,13 @@ class PropietarioViewSet(viewsets.ModelViewSet):
             'contrato_set__inquilino',
             'contrato_set__ocupante_set'
         )
-
-        serializer = ViviendaSerializer(viviendas_activas, many=True)
+        '''
+        propietario_obj = Propietario.objects.get(usuario=request.user)
+        propietario_vivienda = PropietarioVivienda.objects.filter(propietario=propietario_obj)
+        serializer = PropietarioViviendaSerializer(propietario_vivienda, many=True)  # many=True aquí está bien
         return Response(serializer.data)
+
+
     
 class ParqueoViewSet(viewsets.ModelViewSet):
     queryset = Parqueo.objects.all()
