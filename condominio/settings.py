@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-b0b%)z2e*y-7nj(6ffx5ox7w+9rnw1!%n^s^ews+31b-^cxfjh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -161,6 +161,8 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # tu frontend
+    "http://localhost:3000",# tu frontend
+    "http://10.0.2.2:8080",# android emulator
+    'http://192.168.0.5:8080',
 ]
 CORS_ALLOW_CREDENTIALS = True
