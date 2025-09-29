@@ -5,14 +5,33 @@ from ...usuario.serializers import UserSerializer,PersonaSerializer
 from .vivienda import ViviendaSerializer
 
 
+# serializers.py (Define los datos MINIMOS que necesita el SelectSearch)
 
+class InquilinoBusquedaSerializer(serializers.ModelSerializer):
+    # SerializerMethodField para combinar Nombre y Apellido en un solo campo
+    display_name = serializers.SerializerMethodField()
+    ci = serializers.CharField(source='usuario.persona.ci') # Muestra el CI
+    
+    class Meta:
+        model = Inquilino
+        # Solo ID (necesario para el FK), Nombre completo y CI
+        fields = ['id', 'display_name', 'ci'] 
+
+    def get_display_name(self, obj):
+        # Combina el nombre y apellido para mostrarlo en el frontend
+        nombre = obj.usuario.persona.nombre
+        apellido = obj.usuario.persona.apellido
+        return f"{nombre} {apellido}"
+    
 class InquilinoSerializer(serializers.ModelSerializer):
     usuario = UserSerializer(write_only=True)
     usuario_detail = UserSerializer(source='usuario',read_only=True)
     class Meta:
         model = Inquilino
         fields = ['id','estado', 'usuario','usuario_detail']
-        
+    
+    
+    
     def create(self, validated_data):
         usuario_data = validated_data.pop("usuario")
         persona_data = usuario_data.pop("persona")

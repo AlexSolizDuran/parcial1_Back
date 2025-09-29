@@ -1,3 +1,3 @@
-from .inquilino import InquilinoSerializer, MascotaSerializer,OcupanteSerializer, ContratoSerializer,ContratoDetallesSerializer
+from .inquilino import InquilinoSerializer, MascotaSerializer,OcupanteSerializer, ContratoSerializer,ContratoDetallesSerializer,InquilinoBusquedaSerializer
 from .propietario import PropietarioSerializer, ParqueoSerializer, NumeroParqueoSerializer
-from .vivienda import ViviendaSerializer, HistorialDueñoSerializer,PropietarioViviendaSerializer
+from .vivienda import ViviendaSerializer, HistorialDueñoSerializer,PropietarioViviendaSerializer,ViviendaBusquedaSerializer

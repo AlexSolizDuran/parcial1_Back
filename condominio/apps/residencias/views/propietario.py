@@ -33,6 +33,14 @@ class PropietarioViewSet(viewsets.ModelViewSet):
         propietario_vivienda = PropietarioVivienda.objects.filter(propietario=propietario_obj)
         serializer = PropietarioViviendaSerializer(propietario_vivienda, many=True)  # many=True aquí está bien
         return Response(serializer.data)
+    
+    @action(detail=False, methods=["GET"])
+    def idpropietario(self, request):
+        user = request.user
+        propietario = Propietario.objects.get(pk=user.pk)
+        serializer = PropietarioSerializer(propietario)
+        return Response(serializer.data)
+        
 
 
     

@@ -15,7 +15,8 @@ class Inquilino(models.Model):
         if self.usuario:
             self.usuario.delete()  # esto también borrará la persona si el FK de User usa CASCADE
         super().delete(*args, **kwargs)
-        
+   
+            
 class Mascota(models.Model):
     nombre = models.CharField(max_length=50)
     especie = models.CharField(max_length=50)

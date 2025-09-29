@@ -30,4 +30,21 @@ class PropietarioViviendaSerializer(serializers.ModelSerializer):
         model = PropietarioVivienda
         fields = ['id','estado', 'propietario', 'vivienda']
         
+
+class ViviendaBusquedaSerializer(serializers.ModelSerializer):
+    """
+    Serializer simplificado para listas y búsqueda de Viviendas.
+    Devuelve ID y un nombre visible (display_name).
+    """
+    # Campo para mostrar en el frontend
+    display_name = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Vivienda
+        # Campos mínimos para la selección: ID y el nombre visible
+        fields = ['id', 'display_name', 'nro_vivienda', 'superficie'] 
+
+    def get_display_name(self, obj):
+        """Combina el número y la superficie para un nombre legible."""
+        return f"Nro. {obj.nro_vivienda} ({obj.superficie} m²)"
     

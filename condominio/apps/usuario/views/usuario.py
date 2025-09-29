@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from ..serializers import UserSerializer,PersonaSerializer,UserListSerializer
 from ..models import User,Persona
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import filters
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -17,6 +18,10 @@ class PersonaViewSet(viewsets.ModelViewSet):
     queryset = Persona.objects.all()
     serializer_class = PersonaSerializer
     permission_classes = [IsAuthenticated]
+    
+    filter_backends = [filters.SearchFilter]
+    # CLAVE: Permite buscar por el campo 'ci'
+    search_fields = ['ci'] 
     
     def get_queryset(self):
         queryset = super().get_queryset()
