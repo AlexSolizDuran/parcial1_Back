@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from ..models import Inquilino,Mascota,Contrato,Ocupante,Vivienda
 from ...usuario.models import User,Persona,Rol
-from ...usuario.serializers import UserSerializer
+from ...usuario.serializers import UserSerializer,PersonaSerializer
 from .vivienda import ViviendaSerializer
 
 
@@ -48,13 +48,22 @@ class MascotaSerializer(serializers.ModelSerializer):
         
 class OcupanteSerializer(serializers.ModelSerializer):
     contrato = serializers.PrimaryKeyRelatedField(queryset=Contrato.objects.all())
+    persona = serializers.SerializerMethodField()
     class Meta:
         model = Ocupante
-        fields = ['id','persona_ci', 'estado', 'contrato']
+        fields = ['id','persona', 'estado', 'contrato']
+        
+    def get_persona(self, obj):
+        # 1. Buscamos la Persona usando el campo 'persona_ci' del Ocupante
+        try:
+            # Usamos get_object_or_404 de Django para manejar el caso donde no exista
+            persona = Persona.objects.get(ci=obj.persona_ci) 
+            
+            # 2. Serializamos el objeto Persona encontrado
+            return PersonaSerializer(persona).data
+        except Persona.DoesNotExist:
+            return None # Devolver None si la persona no se encuentra
     
-    def get_persona_ci(self, obj):
-        persona = Persona.objects.get(ci=obj.persona_ci)
-        return persona
     
 
 class ContratoSerializer(serializers.ModelSerializer):
