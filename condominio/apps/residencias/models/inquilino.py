@@ -10,6 +10,11 @@ class Inquilino(models.Model):
     
     class Meta:
         db_table = 'inquilino'
+    
+    def delete(self, *args, **kwargs):
+        if self.usuario:
+            self.usuario.delete()  # esto también borrará la persona si el FK de User usa CASCADE
+        super().delete(*args, **kwargs)
         
 class Mascota(models.Model):
     nombre = models.CharField(max_length=50)

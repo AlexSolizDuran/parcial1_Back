@@ -16,14 +16,10 @@ class Registro(models.Model):
         db_table = 'registro'
     
 class Seguridad(models.Model):
-    TURNO_CHOICES = [
-        ("mañana", "Mañana"),
-        ("tarde", "Tarde"),
-        ("noche", "Noche"),
-    ]
     usuario = models.ForeignKey(User, on_delete = models.CASCADE)
     condominio = models.ForeignKey(Condominio, on_delete = models.CASCADE)
-    turno = models.CharField(max_length=10, choices=TURNO_CHOICES)
+    turno = models.CharField(max_length=10)
     estado = models.BooleanField(default=True)
     class Meta:
         db_table = 'seguridad'  
+        

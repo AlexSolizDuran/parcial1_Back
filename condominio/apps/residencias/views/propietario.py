@@ -1,19 +1,19 @@
 from rest_framework import viewsets
-from ..models import Propietario,Parqueo,NumeroParqueo,Vivienda,PropietarioVivienda
+from rest_framework import permissions
+from ..models import Propietario,Parqueo,NumeroParqueo,PropietarioVivienda
 from ..serializers import (PropietarioSerializer,
                            ParqueoSerializer,
                            NumeroParqueoSerializer,
-                           ViviendaSerializer,
                            PropietarioViviendaSerializer)
+
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
-from django.db.models import Prefetch
 from rest_framework.response import Response
 
 class PropietarioViewSet(viewsets.ModelViewSet):
     queryset = Propietario.objects.all()
     serializer_class = PropietarioSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     
     
     @action(detail=False, methods=["GET"])

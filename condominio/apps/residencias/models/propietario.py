@@ -13,6 +13,11 @@ class Propietario(models.Model):
     class Meta:
         db_table = 'propietario'
         
+    def delete(self, *args, **kwargs):
+        if self.usuario:
+            self.usuario.delete()  # esto también borrará la persona si el FK de User usa CASCADE
+        super().delete(*args, **kwargs)
+        
 
 class Parqueo(models.Model):
     descripcion = models.TextField()

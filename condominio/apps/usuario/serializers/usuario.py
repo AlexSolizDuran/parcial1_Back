@@ -18,7 +18,9 @@ class UserSerializer(serializers.ModelSerializer):
     roles = serializers.SlugRelatedField(
         many=True,
         queryset=Rol.objects.all(),
-        slug_field='nombre'
+        slug_field='nombre',
+        required=False,
+        default=[],
     )
 
 

@@ -8,7 +8,7 @@ class Vivienda(models.Model):
     nro_vivienda = models.PositiveSmallIntegerField()
     precio_alquiler = models.PositiveBigIntegerField(null=True)
     precio_anticretico = models.PositiveBigIntegerField(null=True)
-    superfice = models.PositiveBigIntegerField(null=True)
+    superficie = models.PositiveBigIntegerField(null=True)
     estado = models.BooleanField(default=True)
     foto = models.ImageField(upload_to='vivienda/',null=True)
     
