@@ -48,8 +48,8 @@ class InquilinoViewSet(viewsets.ModelViewSet):
     def micontrato(self, request):
         usuario = request.user
         inquilino = Inquilino.objects.get(usuario=usuario)
-        contrato = Contrato.objects.filter(inquilino=inquilino)
-        serializer = ContratoSerializer(contrato, many=True , estado=True)
+        contrato = Contrato.objects.filter(inquilino=inquilino ,estado=True)
+        serializer = ContratoSerializer(contrato, many=True)
         return Response(serializer.data)
     
 class MascotaViewSet(viewsets.ModelViewSet):
