@@ -90,12 +90,31 @@ class ContratoSerializer(serializers.ModelSerializer):
     inquilino = serializers.PrimaryKeyRelatedField(queryset=Inquilino.objects.all(),write_only=True)
     inquilino_detail = InquilinoSerializer(source='inquilino',read_only=True)
     vivienda_detail = ViviendaSerializer(source='vivienda',read_only=True)
+    ocupantes_ci = serializers.ListField(child=serializers.DictField(), write_only=True, required=False)
+
     class Meta:
         model = Contrato
         fields = ['id','descripcion','inquilino','inquilino_detail','vivienda_detail',
                   'fecha_ingreso', 'fecha_salida', 'porcentaje_expensa', 'tipo_renta',
-                  'vivienda','vivienda_detail']
+                  'vivienda','vivienda_detail','ocupantes_ci']
         
+    def create(self, validated_data):
+        ocupantes_ci = validated_data.pop("ocupantes_ci", [])
+        contrato = super().create(validated_data)
+        for ci in ocupantes_ci:
+            try:
+                Ocupante.objects.create(contrato=contrato, persona_ci=ci)
+            except Persona.DoesNotExist:
+                raise serializers.ValidationError(
+                    {"ocupantes_ci": f"La persona con CI {ci} no existe"}
+                )
+
+        return contrato
+
+
+
+
+
 class ContratoDetallesSerializer(serializers.Serializer):
    
     contrato = ContratoSerializer(read_only=True)

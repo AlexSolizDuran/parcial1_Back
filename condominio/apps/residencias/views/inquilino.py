@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from ..models import Inquilino,Mascota,Ocupante,Contrato,Propietario
+from ..models import Inquilino,Mascota,Ocupante,Contrato
 from ..serializers import (InquilinoSerializer,
                            MascotaSerializer,
                            OcupanteSerializer,
@@ -16,7 +16,8 @@ from rest_framework import filters
 class InquilinoViewSet(viewsets.ModelViewSet):
     queryset = Inquilino.objects.all()
     serializer_class = InquilinoSerializer 
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.AllowAny] 
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     
     # 💡 2. Campos para buscar (ej. por nombre, apellido o CI)
@@ -43,6 +44,14 @@ class InquilinoViewSet(viewsets.ModelViewSet):
         serializer = InquilinoBusquedaSerializer(queryset, many=True)
         return Response(serializer.data)
     
+    @action(detail=False, methods=["GET"])
+    def micontrato(self, request):
+        usuario = request.user
+        inquilino = Inquilino.objects.get(usuario=usuario)
+        contrato = Contrato.objects.filter(inquilino=inquilino)
+        serializer = ContratoSerializer(contrato, many=True)
+        return Response(serializer.data)
+    
 class MascotaViewSet(viewsets.ModelViewSet):
     queryset = Mascota.objects.all()
     serializer_class = MascotaSerializer
@@ -53,19 +62,19 @@ class ContratoViewSet(viewsets.ModelViewSet):
     serializer_class = ContratoSerializer
     permission_classes = [permissions.AllowAny]  
     
-    @action(detail=False, methods=["GET"])
+    @action(detail=True, methods=["GET"])
     def micontrato(self, request, pk=None):
-        user = request.user
-        propietario = Propietario.objects.get(usuario=user)
-        contrato = Contrato.objects.filter(vivienda__propietariovivienda__propietario=propietario)
+        contrato = self.get_object()
         ocupantes = contrato.ocupantes.all()
-        
         response_data = ContratoDetallesSerializer({
             'contrato': contrato, 
             'ocupantes': ocupantes,
         }).data
         
         return Response(response_data, status=status.HTTP_200_OK)
+    
+    
+
         
     
 class OcupanteViewSet(viewsets.ModelViewSet):
