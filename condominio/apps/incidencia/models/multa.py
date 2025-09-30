@@ -12,6 +12,7 @@ class Multa(models.Model):
     descripcion = models.TextField()
     estado = models.BooleanField(default=True)
     tipo = models.ForeignKey(TipoMulta, on_delete=models.CASCADE)
+    Monto = models.DecimalField(max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
