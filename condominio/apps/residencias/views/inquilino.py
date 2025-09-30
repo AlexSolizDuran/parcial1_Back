@@ -70,6 +70,8 @@ class InquilinoViewSet(viewsets.ModelViewSet):
 
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    
     
 class MascotaViewSet(viewsets.ModelViewSet):
     queryset = Mascota.objects.all()
