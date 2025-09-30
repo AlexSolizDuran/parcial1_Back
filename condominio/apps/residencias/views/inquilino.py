@@ -11,7 +11,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from rest_framework import filters
-
+from ..models.propietario import Propietario
+from ..models.vivienda import Vivienda, PropietarioVivienda
+from ..models.inquilino import Inquilino, Contrato
 
 class InquilinoViewSet(viewsets.ModelViewSet):
     queryset = Inquilino.objects.all()
@@ -51,6 +53,25 @@ class InquilinoViewSet(viewsets.ModelViewSet):
         contrato = Contrato.objects.filter(inquilino=inquilino ,estado=True)
         serializer = ContratoSerializer(contrato, many=True)
         return Response(serializer.data)
+    
+    @action(detail=False, methods=['GET'], url_path="qrpago")
+    def qrpago(self, request):
+        username = request.query_params.get("username")
+        if not username:
+            return Response({"error": "Debe enviar ?username="}, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            propietarios = Propietario.objects.filter(
+                propietariovivienda__vivienda__contrato__inquilino__usuario__username=username,
+                propietariovivienda__estado=True,
+            ).values('id', 'usuario', 'usuario__persona__nombre', 'usuario__persona__apellido', 
+                     'estado', 'fecha_compra', 'QRpago')
+
+            return Response(list(propietarios), status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    
     
 class MascotaViewSet(viewsets.ModelViewSet):
     queryset = Mascota.objects.all()
