@@ -43,7 +43,7 @@ class InquilinoViewSet(viewsets.ModelViewSet):
 
         serializer = InquilinoBusquedaSerializer(queryset, many=True)
         return Response(serializer.data)
-    
+    #aquie esta la peticion para obtener el contratos
     @action(detail=False, methods=["GET"])
     def micontrato(self, request):
         usuario = request.user
