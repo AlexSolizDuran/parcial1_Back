@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "descripcion": "Contrato 1",
+    "inquilino_detail": {
+      "id": 1,
+      "estado": true,
+      "usuario_detail": {
+        "id": 8,
+        "username": "user8",
+        "email": "user8@example.com",
+        "persona": {
+          "id": 8,
+          "nombre": "Lawrence",
+          "apellido": "Morrow",
+          "ci": "80055503",
+          "telefono": "1008704",
+          "fecha_nacimiento": "2003-11-30",
+          "foto": null,
+          "genero": "M",
+          "direccion": "92512 Greene Plaza Suite 365\nWest Cindyton, NM 55066"
+        },
+        "roles": [
+          "inquilino"
+        ],
+        "activo": true
+      }
+    },
+    "vivienda_detail": {
+      "id": 1,
+      "condominio": 1,
+      "nro_vivienda": 101,
+      "precio_alquiler": 1001,
+      "precio_anticretico": 50001,
+      "superficie": 100,
+      "estado": false,
+      "foto": null
+    },
+    "fecha_ingreso": "2024-10-09T00:00:00Z",
+    "fecha_salida": "2025-02-13T00:00:00Z",
+    "porcentaje_expensa": 10,
+    "tipo_renta": "Alquiler"
+  }
+]

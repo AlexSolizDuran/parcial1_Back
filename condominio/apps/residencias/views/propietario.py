@@ -41,6 +41,7 @@ class PropietarioViewSet(viewsets.ModelViewSet):
         serializer = PropietarioSerializer(propietario)
         return Response(serializer.data)
         
+    
 
 
     
