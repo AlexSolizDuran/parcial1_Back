@@ -10,16 +10,20 @@ class TipoExpensaSerializer(serializers.ModelSerializer):
         fields = ['id','nombre', 'descripcion']
         
 class ExpensaSerializer(serializers.ModelSerializer):
-    condominio = serializers.PrimaryKeyRelatedField(queryset=Condominio.objects.all(),write_only=True)
+    condominio = serializers.PrimaryKeyRelatedField(queryset=Condominio.objects.all(),write_only=True,required=False)
     tipo_expensa = serializers.PrimaryKeyRelatedField(queryset=TipoExpensa.objects.all(),write_only=True)
-    tipo_expensa_detail  = TipoExpensaSerializer(read_only=True)
+    tipo_expensa_detail  = serializers.SerializerMethodField()
     class Meta:
         model = Expensa
         fields = ['id','estado', 'fecha_vencimiento', 'monto', 'tipo_expensa','tipo_expensa_detail','condominio']    
+    def get_tipo_expensa_detail(self, obj):
+        if obj.tipo_expensa:
+            return TipoExpensaSerializer(obj.tipo_expensa).data
+        return None
     def create(self, validated_data):
-        user = self.context['request'].user
-        admin = Admin.objects.filter(usuario=user).first()
-        condomininio = AdminCondominio.objects.filter(admin=admin, activo=True).first().condominio
-        validated_data['condominio'] = condomininio
+        user = self.context['request'].user  # admin logueado
+        admin = Admin.objects.get(usuario=user) 
+        admin_condominio = AdminCondominio.objects.filter(admin=admin, activo=True).first()
+        validated_data['condominio'] = admin_condominio.condominio
         return super().create(validated_data)
         
