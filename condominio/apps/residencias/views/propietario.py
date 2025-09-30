@@ -37,7 +37,7 @@ class PropietarioViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["GET"])
     def idpropietario(self, request):
         user = request.user
-        propietario = Propietario.objects.get(pk=user.pk)
+        propietario = Propietario.objects.get(user=user)
         serializer = PropietarioSerializer(propietario)
         return Response(serializer.data)
         
