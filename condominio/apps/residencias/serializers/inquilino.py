@@ -90,13 +90,16 @@ class ContratoSerializer(serializers.ModelSerializer):
     inquilino = serializers.PrimaryKeyRelatedField(queryset=Inquilino.objects.all(),write_only=True)
     inquilino_detail = InquilinoSerializer(source='inquilino',read_only=True)
     vivienda_detail = ViviendaSerializer(source='vivienda',read_only=True)
-    ocupantes_ci = serializers.ListField(child=serializers.DictField(), write_only=True, required=False)
+    
+    ocupantes_ci = serializers.ListField(
+        child=serializers.CharField(), write_only=True
+    )
 
     class Meta:
         model = Contrato
         fields = ['id','descripcion','inquilino','inquilino_detail','vivienda_detail',
                   'fecha_ingreso', 'fecha_salida', 'porcentaje_expensa', 'tipo_renta',
-                  'vivienda','vivienda_detail','ocupantes_ci']
+                  'vivienda','vivienda_detail','ocupantes_ci','estado']
         
     def create(self, validated_data):
         ocupantes_ci = validated_data.pop("ocupantes_ci", [])
