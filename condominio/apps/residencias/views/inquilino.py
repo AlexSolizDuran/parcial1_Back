@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from ..models import Inquilino,Mascota,Ocupante,Contrato
+from ..models import Inquilino,Mascota,Ocupante,Contrato,Propietario
 from ..serializers import (InquilinoSerializer,
                            MascotaSerializer,
                            OcupanteSerializer,
@@ -53,10 +53,11 @@ class ContratoViewSet(viewsets.ModelViewSet):
     serializer_class = ContratoSerializer
     permission_classes = [permissions.AllowAny]  
     
-    @action(detail=True, methods=["GET"])
+    @action(detail=False, methods=["GET"])
     def micontrato(self, request, pk=None):
-        
-        contrato = self.get_object()
+        user = request.user
+        propietario = Propietario.objects.get(usuario=user)
+        contrato = Contrato.objects.filter(vivienda__propietariovivienda__propietario=propietario)
         ocupantes = contrato.ocupantes.all()
         
         response_data = ContratoDetallesSerializer({
