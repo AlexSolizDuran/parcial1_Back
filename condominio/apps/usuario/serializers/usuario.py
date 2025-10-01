@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from ..models import User, Persona,Rol
-from ..utils import generar_vector_facial
+from ..utils import generar_vector_facial_opencv
 
 
 
@@ -11,12 +11,12 @@ class PersonaSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         persona = super().create(validated_data)
-        generar_vector_facial(persona)  # Generamos vector si hay foto
+        generar_vector_facial_opencv(persona)  # Generamos vector si hay foto
         return persona
 
     def update(self, instance, validated_data):
         persona = super().update(instance, validated_data)
-        generar_vector_facial(persona)  # Re-generamos vector si actualizan foto
+        generar_vector_facial_opencv(persona)  # Re-generamos vector si actualizan foto
         return persona
 
 class UserListSerializer(serializers.ModelSerializer):

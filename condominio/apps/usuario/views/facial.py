@@ -3,15 +3,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from ..serializers import FacialSerializer
+from rest_framework import permissions
 from ..models import Persona
 import cv2
 import numpy as np
 import json
 
-class FaceRecognitionView(APIView):
-    """
-    Endpoint para reconocer una persona a partir de una imagen
-    """
+class FacialView(APIView):
+    permission_classes = [permissions.AllowAny]
+
     def post(self, request):
         serializer = FacialSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
