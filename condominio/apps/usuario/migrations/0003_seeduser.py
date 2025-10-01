@@ -19,7 +19,7 @@ def crear_usuarios_con_roles(apps, schema_editor):
         rol, _ = Rol.objects.get_or_create(nombre=nombre, defaults={'descripcion': f'Rol {nombre}'})
         roles.append(rol)
 
-    for i in range(12):
+    for i in range(14):
         # Crear persona
         persona = Persona.objects.create(
             nombre=fake.first_name(),
@@ -51,9 +51,14 @@ def crear_usuarios_con_roles(apps, schema_editor):
             asignados = [roles[1]]
         elif i == 7:
             asignados = [roles[2]]
+        elif i == 13:
+            asignados = [roles[3]]
+        
        
         for rol in asignados:
             RolUsuario.objects.create(usuario=user, rol=rol)
+    
+    
     
     for i in range(10):
         persona = Persona.objects.create(
@@ -66,13 +71,20 @@ def crear_usuarios_con_roles(apps, schema_editor):
             telefono=fake.numerify(text="#######")
         )
         
+    
+   
+
+    
+    
        
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('usuario', '0001_initial'),
+        
     ]
+    
 
     operations = [
         migrations.RunPython(crear_usuarios_con_roles),

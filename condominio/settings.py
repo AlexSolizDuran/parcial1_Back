@@ -103,6 +103,7 @@ WSGI_APPLICATION = 'condominio.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+
 '''
 DATABASES = {
     'default': {
@@ -114,13 +115,14 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'condominio',
-        'USER': 'user0',
-        'PASSWORD': 'si2conta',
-        'HOST': 'contabilidad',
+        'NAME': 'urubicha',
+        'USER': 'postgres',
+        'PASSWORD': 'ludicolo123',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

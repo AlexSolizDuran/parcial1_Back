@@ -15,6 +15,7 @@ def crear_instancia(apps, schema_editor):
     Contrato = apps.get_model('residencias', 'Contrato')
     Ocupante = apps.get_model('residencias', 'Ocupante')
     Persona = apps.get_model('usuario', 'Persona')
+    Seguridad = apps.get_model('acceso_registro', 'Seguridad')
     
     propietario_role = Rol.objects.get(nombre='propietario')
     usuarios_propietario = User.objects.filter(rolusuario__rol=propietario_role)[:5]
@@ -35,6 +36,12 @@ def crear_instancia(apps, schema_editor):
     inquilino5 = Inquilino.objects.create(usuario=usuarios_inquilino[4])
     
     condominio = Condominio.objects.first()
+    
+    seguridad_role = Rol.objects.get(nombre='seguridad')
+    usuarios_seguridad = User.objects.filter(rolusuario__rol=seguridad_role)[:2]
+    seguridad1 = Seguridad.objects.create(usuario=usuarios_seguridad[0], condominio=condominio, turno='Mañana')
+    #seguridad2 = Seguridad.objects.create(usuario=usuarios_seguridad[1], condominio=condominio, turno='Tarde')
+    
 
     vivienda1 = Vivienda.objects.create(
         condominio=condominio, 
@@ -128,7 +135,9 @@ def crear_instancia(apps, schema_editor):
     
 
     
-
+    seguridad_role = Rol.objects.get(nombre='seguridad')
+    
+   
     
 
     
@@ -138,7 +147,11 @@ class Migration(migrations.Migration):
     dependencies = [
         ('residencias', '0001_initial'),
         ('usuario', '0001_initial'),
-        ('usuario', '0003_seeduser'),# depende de la migración inicial
+        ('usuario', '0003_seeduser'),
+        ('acceso_registro', '0001_initial'),
+        ('admin_condominio', '0001_initial')
+        
+        
     ]
 
     operations = [
