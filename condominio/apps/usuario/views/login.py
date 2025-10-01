@@ -33,11 +33,12 @@ class LoginView(generics.GenericAPIView):
             },status = status.HTTP_200_OK)
         
             response.set_cookie(
-                key="seccionToken",
-                value=str(refresh),                
+                key="sessionToken",
+                value=access_token,                
                 httponly=True,
-                secure=False,
+                secure=True,
                 samesite="Strict",
+                max_age=60*60*24  
             )
             return response
         
