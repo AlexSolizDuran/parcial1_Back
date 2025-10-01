@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+import json
 
 class UserManager(BaseUserManager):
     def create_user(self, username, password=None, **extra_fields):
@@ -27,11 +28,21 @@ class Persona(models.Model):
     telefono = models.CharField(max_length=20, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+    face_vector = models.TextField(null=True, blank=True)  # JSON
+
     class Meta:
         db_table = "persona"
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
+    
+    def set_face_vector(self, vector):
+        self.face_vector = json.dumps(vector.tolist())
+        self.save()
+
+    def get_face_vector(self):
+        if self.face_vector:
+            return json.loads(self.face_vector)
+        return None
     
 
 class User(AbstractBaseUser):

@@ -1,11 +1,23 @@
 from rest_framework import serializers
 from ..models import User, Persona,Rol
+from ..utils import generar_vector_facial
+
+
 
 class PersonaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Persona
         fields = ['id','nombre', 'apellido', 'ci', 'telefono','fecha_nacimiento','foto','genero','direccion']
 
+    def create(self, validated_data):
+        persona = super().create(validated_data)
+        generar_vector_facial(persona)  # Generamos vector si hay foto
+        return persona
+
+    def update(self, instance, validated_data):
+        persona = super().update(instance, validated_data)
+        generar_vector_facial(persona)  # Re-generamos vector si actualizan foto
+        return persona
 
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
