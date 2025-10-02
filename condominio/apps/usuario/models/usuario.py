@@ -66,6 +66,11 @@ class User(AbstractBaseUser):
     
     class Meta:
         db_table = "usuario"
+            
+    def delete(self, *args, **kwargs):
+        if self.usuario:
+            self.usuario.delete()  # esto también borrará la persona si el FK de User usa CASCADE
+        super().delete(*args, **kwargs)
         
     def __str__(self):
         return self.username
